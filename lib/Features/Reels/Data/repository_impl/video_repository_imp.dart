@@ -8,6 +8,6 @@ class VideoRepositoryImp implements VideoRepositiry{
 
   @override
   Future<List<Video>> getVideos({required int page, required int pageSize}){
-    return remote.getVideos(page: page, pageSize: pageSize);
+    return remote.getVideos(page: page, pageSize: 5);
   }
 }
