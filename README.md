@@ -1,6 +1,6 @@
 # Reels Simulation App
 
-This is a Flutter application  implements a Video Listing Page that fetches videos from the Pexels Videos API and displays them in a scrollable list with infinite pagination. The app follows Clean Architecture principles, uses Riverpod for state management, Dio for networking, and includes features like authentication token handling, configuration management, and a simulated video play interaction.
+This is a Flutter application  implements a Video Listing Page that fetches videos from the Pexels Videos API and displays them in a scrollable list with infinite pagination. The app follows Clean Architecture principles, uses Riverpod for state management, Dio for networkingt, and a simulated video play interaction.
 
 ## Features
 - **Clean Architecture**: Code is organized into Presentation, Domain, and Data layers for better separation of concerns and testability.
@@ -84,19 +84,8 @@ You can run the app on an emulator or a physical device. Below are detailed step
 
 Note: If using a real device, ensure Flutter is set up correctly (e.g., `flutter doctor` shows no issues).
 
-## Additional Notes
-- **Pagination**: Infinite scrolling is handled using `infinite_scroll_pagination`. The app fetches 10 videos per page (configurable) and shows skeletons during loading.
-- **Video Playback Simulation**: Tapping the play button triggers a 2-second delay (using `Future.delayed`) to mimic video playback.
-- **Error Handling**: Handles network errors, empty results, and end of pagination.
-- **Testing**: Tested on Android emulator and physical device. iOS support can be added if needed.
-- **Improvements**: For production, add caching (e.g., with Hive or SharedPreferences) and actual video playback (e.g., with `video_player` package).
-
-If you have any questions or need further clarification, feel free to reach out!
-
 
 ### Known Limitations & Performance Notes
 
 - Tapping anywhere on the video screen toggles play/pause and shows control buttons.
 - Videos are fetched in high quality (often 1080p or 4K) from Pexels API, which may result in longer initial loading times (especially on slower networks) due to large file sizes (30–100 MB per video in some cases).
-- A loading indicator is displayed until the video is fully initialized and ready to play.
-- Future improvements could include adaptive bitrate streaming or lower-quality preloading for faster start times.
