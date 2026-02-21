@@ -3,27 +3,40 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:reels_simulation/Features/Reels/Domain/entities/video_entity.dart';
 import 'package:reels_simulation/Features/Reels/Presentation/providers/di.dart';
 
+
 final reelsPagingControllerProvider =
-    Provider.autoDispose<PagingController<int, Video>>((ref) {
-  final repository = ref.watch(videoRepositoryProvider);
+    NotifierProvider<ReelsPagingNotifier,
+        PagingState<int, Video>>(ReelsPagingNotifier.new);
 
-  final controller = PagingController<int, Video>(
-    getNextPageKey: (state) {
-      if (state.lastPageIsEmpty) return null;
-      final currentLastKey = state.keys?.last ?? 0;
-      return currentLastKey + 1;
-    },
-    fetchPage: (pageKey) async {
-      final newItems = await repository.getVideos(
-        page: pageKey,
-        pageSize: 10,
-      );
+class ReelsPagingNotifier
+    extends Notifier<PagingState<int, Video>> {
 
-      return newItems;
-    },
-  );
+  @override
+  PagingState<int, Video> build() {
+    fetchNextPage(); 
+    return PagingState();
+    
+  }
 
-  ref.onDispose(controller.dispose);
+  Future<void> fetchNextPage() async {
+    if (state.isLoading) return;
 
-  return controller;
-});
+    state = state.copyWith(isLoading: true);
+
+    final repository = ref.read(videoRepositoryProvider);
+
+    final nextKey = (state.keys?.last ?? 0) + 1;
+
+    final newItems = await repository.getVideos(
+      page: nextKey,
+      pageSize: 10,
+    );
+
+    state = state.copyWith(
+      pages: [...?state.pages, newItems],
+      keys: [...?state.keys, nextKey],
+      hasNextPage: newItems.isNotEmpty,
+      isLoading: false,
+    );
+  }
+}        

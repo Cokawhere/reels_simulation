@@ -7,7 +7,7 @@ class VideoModel extends Video {
     return VideoModel(
       id: map['id'],
       fileType: map['fileType'],
-      url: map['video_files'][1]['link'],
+      url: map['video_files'][3]['link'],
     );
   }
 }

@@ -24,24 +24,6 @@ class VideoPlayerWidget extends ConsumerWidget {
                     aspectRatio: state.controller!.value.aspectRatio,
                     child: VideoPlayer(state.controller!),
                   ),
-                  if (!state.isInitialized)
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(51, 0, 0, 0),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 8,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
                   if (state.showControls)
                     Container(
                       color: const Color.fromARGB(0, 0, 0, 0),

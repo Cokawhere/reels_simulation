@@ -10,16 +10,17 @@ class ReelsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final paginationController = ref.watch(reelsPagingControllerProvider);
+    final state = ref.watch(reelsPagingControllerProvider);
+    final notifier = ref.read(reelsPagingControllerProvider.notifier);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: const Color.fromARGB(49, 0, 0, 0),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(84, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(82, 0, 0, 0),
         title: Text(
           "NewYork",
           style: TextStyle(
-            color: const Color.fromARGB(133, 43, 40, 40),
+            color: const Color.fromARGB(133, 235, 230, 230),
             fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
@@ -27,8 +28,8 @@ class ReelsPage extends ConsumerWidget {
         centerTitle: true,
       ),
       body: PagedPageView<int, Video>(
-        state: paginationController.value,
-        fetchNextPage: paginationController.fetchNextPage,
+        state: state,
+        fetchNextPage: notifier.fetchNextPage,
         scrollDirection: Axis.vertical,
         builderDelegate: PagedChildBuilderDelegate<Video>(
           firstPageProgressIndicatorBuilder: (_) => Center(
@@ -44,6 +45,25 @@ class ReelsPage extends ConsumerWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 8,
                   color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          noItemsFoundIndicatorBuilder: (_) => const Center(
+            child: Text(
+              "No videos found",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          noMoreItemsIndicatorBuilder: (_) => Container(
+            color: Colors.black,
+            child: const Center(
+              child: Text(
+                "There is no more videos",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
