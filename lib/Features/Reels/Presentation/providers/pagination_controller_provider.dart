@@ -11,7 +11,6 @@ final reelsPagingControllerProvider =
 class ReelsPagingNotifier extends Notifier<PagingState<int, Video>> {
   @override
   PagingState<int, Video> build() {
-    fetchNextPage();
     return PagingState();
   }
 
@@ -28,7 +27,7 @@ class ReelsPagingNotifier extends Notifier<PagingState<int, Video>> {
       return;
     }
 
-    final newItems = await repository.getVideos(page: nextKey, pageSize: 10);
+    final newItems = await repository.getVideos(page: nextKey, pageSize: 3);
 
     state = state.copyWith(
       pages: [...?state.pages, newItems],

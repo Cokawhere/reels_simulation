@@ -8,8 +8,8 @@ final videoPlayerProvider =
     );
 
 class VideoPlayerNotifier extends Notifier<VideoPlayerStateModel> {
-  VideoPlayerNotifier(this.videoUrl);
   final String videoUrl;
+  VideoPlayerNotifier(this.videoUrl);
 
   @override
   VideoPlayerStateModel build() {
